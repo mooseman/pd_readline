@@ -4,6 +4,21 @@
   This repo is for the (eventual) storage of a public-domain  
 readline-and-command-history implementation. 
 
+Update - 24th Aug 2012 - 
+Added the mg editor files from OpenBSD. 
+I obtained the code from here - 
+ftp://ftp.cc.uoc.gr/mirrors/OpenBSD/src/usr.bin/mg/
+
+( It's not so much the editor itself that is the main interest here, 
+but the line-management code. )  
+
+NOTE - in the mg directory, the file "theo.c" is NOT 
+"public domain" ( but it HAD to be included because of the 
+humour......  ;)    )  
+
+Many thanks to the OpenBSD team and the mg devs 
+(hi Theo - arrrrrrgh, please don't hit me........... ;)     )   
+
  - mooseman 
 
  
