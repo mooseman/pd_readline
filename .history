@@ -1,0 +1,17 @@
+ls
+git add .
+git commit -a -m "Added a C version of the editor."
+git push origin master
+cd pdeditor
+./pdeditor
+cd pdeditor
+./pdeditor
+mkdir foo 
+make -f makefile
+clear
+./struct_array
+cd struct_array
+python
+cd struct_array
+./struct_array
+
