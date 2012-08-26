@@ -12,6 +12,14 @@ This makes it VERY easy to see the various special flags
 in a keystroke sequence 
 (e.g. Esc, Ctrl, Alt and so on..... ).  
 
+Big breakthrough - the code can now distinguish between 
+normal "printable" keys and keys that should not be 
+printed (e.g. arrow keys, Ctrl sequences and so on).  
+
+The next goal is to make the code move the cursor to the 
+left (when left-arrow is pressed) and delete a char (when 
+backspace is pressed). 
+
 Still some way to go to get to a REAL readline, but we are 
 "on the way......"
 
