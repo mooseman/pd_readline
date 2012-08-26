@@ -4,20 +4,20 @@
   This repo is for the (eventual) storage of a public-domain  
 readline-and-command-history implementation. 
 
-Update - 24th Aug 2012 - 
-Added the mg editor files from OpenBSD. 
-I obtained the code from here - 
-ftp://ftp.cc.uoc.gr/mirrors/OpenBSD/src/usr.bin/mg/
+Update - 26th Aug 2012 - 
 
-( It's not so much the editor itself that is the main interest here, 
-but the line-management code. )  
+Very useful progress.  
+Keystroke sequences are now stored in an array of structs. 
+This makes it VERY easy to see the various special flags 
+in a keystroke sequence 
+(e.g. Esc, Ctrl, Alt and so on..... ).  
 
-NOTE - in the mg directory, the file "theo.c" is NOT 
-"public domain" ( but it HAD to be included because of the 
-humour......  ;)    )  
+Still some way to go to get to a REAL readline, but we are 
+"on the way......"
 
-Many thanks to the OpenBSD team and the mg devs 
-(hi Theo - arrrrrrgh, please don't hit me........... ;)     )   
+This code is released to the public domain.  
+"Share and enjoy........ ;)  "  
+
 
  - mooseman 
 
