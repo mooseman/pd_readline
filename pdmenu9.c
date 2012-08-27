@@ -82,6 +82,20 @@ int fexists(char *fname)
 } 
 
 
+/* Helper function to print escape sequences to terminal */ 
+void prtseq(char *what) 
+{   
+   if (strcmp(what, "left") )         printf("\033[1D"); 
+   else if (strcmp(what, "right") )   printf("\033[1C"); 	
+   else if (strcmp(what, "bs") )   
+       printf("\033[1D");
+	   printf("\040"); 
+	   printf("\033[1D");             
+} 	
+
+
+
+
  /* Struct to store key sequences */ 
 typedef struct { 
 	   int fnkey; 
@@ -146,9 +160,7 @@ int main(void)
       { 
 		 buffer[bufpnt].key = key;  
 		 /* Move 1 char to left */  
-		 printf("\033[1D");
-		 printf("\040"); 
-		 printf("\033[1D");  
+		 prtseq("bs"); 
 		 bufpnt += 1; 	  		
 	  } 	      
                            
@@ -170,12 +182,12 @@ int main(void)
                if(key == 67) /* Left arrow */ 
                { 				 
 				 buffer[bufpnt].key = key; 
-				 printf("\033[1C");   
+				 prtseq("left"); 				 
                }
                 if(key == 68) /* Right arrow */ 
                { 				 
 				 buffer[bufpnt].key = key; 
-				 printf("\033[1D");   				               				 								          
+				 prtseq("right"); 				 
                }
                              			  
             bufpnt += 1; 	    
