@@ -7,7 +7,7 @@
 /*  up-arrow key.                                      */ 
 /*  This code is released to the public domain.        */ 
 /*  "Share and enjoy...."  ;)                          */  
-
+/*  See the UNLICENSE file for details.                */ 
  
 
 #include <string.h>   
