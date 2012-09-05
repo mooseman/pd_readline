@@ -1,19 +1,18 @@
 
 
-/*  pd_readline.c                                           */  
-/*  Status (as at 26th Aug 2012) : useful progress.         */ 
-/*  Keystroke sequences (along with the special flags       */ 
-/*  like Esc, Ctrl, Alt etc are now stored in a buffer      */ 
-/*  ( an array of structs ).                                */    
-/*  It will still be some time before this is a REAL        */ 
-/*  readline, but we are "on the way"......                 */     
-/*  This code is released to the public domain.             */ 
-/*  "Share and enjoy...."  ;)                               */  
+/*  pd_readline.c                                      */  
+/*  Some code to allow the editing of a command-line.  */ 
+/*  You can also move around with the left and right   */ 
+/*  arrow keys, and recall previous commands with the  */ 
+/*  up-arrow key.                                      */ 
+/*  This code is released to the public domain.        */ 
+/*  "Share and enjoy...."  ;)                          */  
 
+ 
 
 #include <string.h>   
 #include <stdio.h> 
-#include <termios.h>  /* For getch()  */  
+#include <termios.h>  
 
 /* This implementation of getch() is from here - */ 
 /* http://wesley.vidiqatch.org/                  */ 
@@ -59,73 +58,112 @@ char getche(void) {
 
 
 
-/*  Helper function, to let us see if a .history file */ 
+/*  Helper function, to let us see if a file */ 
 /*  exists in the current directory.  */ 
 int fexists(char *fname)
 {  
-
-   FILE *fptr ;  	
-	
-   fptr = fopen(fname, "r") ;  
-   
-   if ( !fptr )  return -1 ;  /* File does not exist in dir. */ 	
-	 
+   FILE *fptr;  
+   fptr = fopen(fname, "r") ;     
+   if ( !fptr )  return -1 ;  /* File does not exist in dir. */ 		 
    fclose(fptr);  
-   return 0;    /* File DOES exist in dir.  */  	
-
+   return 0;    /* File DOES exist in dir.  */   
 } 
 
 
- /* Struct to store key sequences */ 
-typedef struct { 
-	   int fnkey; 
-	   int ctrl; 
-	   int alt ; 
-       int shf ; 
-       int esc ; 
-       int lbr ;  /* For left-bracket ([) of escape sequences */ 
-       int key; 
-   } keyseq ;         
-
-
-
-
-
-int main(void)
+/* Helper function to chop newlines off the lines read in. */ 
+/* Without this being done, an extra newline is inserted */ 
+/* (which is usually not what is wanted). */ 
+char *chop(char *s)
 {
+  s[strcspn(s,"\n")] = '\0'; 
+  return s; 
+}
+
+
+/* An array to store the command-history file in. */ 
+/* Only 20 lines are read. */ 
+char hist[20][80];  
+
+
+/* Read the file into the array of strings.  */ 
+void readfile(char *fname) 
+{ 
+   int retval = fexists(fname); 
+        
+   int i; 
+   if (retval == 0) { 
+	  /* File exists, so open it. */  
+	  /* We open it in read-write mode so we can */ 
+	  /* append new commands to it. */ 
+	  FILE *fptr;  
+	  fptr = fopen(fname, "rw"); 
+	 	  	   
+	  for(i=0; i<20; i++)  
+	  {  
+		chop(fgets(hist[i], 80, fptr) );  
+	  }
+	  
+   }  /* retval == 0  */   	   
 	
-  printf("Public Domain Readline \n");              
-  printf("NOTE! - at the moment, we are using \n");  
-  printf("NON-echoing reads, storing the keystrokes \n");  
-  printf("in a buffer \n");   
+	else puts("Error! File does not exist. \n");  
+	
+} 	
+
+
+/* Helper function to print the command-history file. */  
+void printfile(void) 
+{ 
+  int j; 
+  	
+  for(j=0; j<20; j++) 
+     { 
+        puts(hist[j]);     	
+     }    	
+} 	
+
+
+
+
+/* Helper function. Print a previous command-line WITHOUT */ 
+/* a newline. */ 
+void putline(char *str) 
+{   
+  char *line = chop(str); 	
+  printf("%s", line);          		
+} 	 
+
+
+
+
+int main(void) 
+{ 
+
+/* Our "command-history" file.  */ 
+readfile("test.txt"); 
+
+/* Main buffer for the command-line. */ 
+char buffer[80];  
     
-  
-  /* Buffer - an array of keyseq structs.                     */  
-  /* Note - now that we store the keystrokes in here,         */ 
-  /* we can look at the various flags and decide whether to   */ 
-  /* "echo" the key (as normal) or suppress it (as with an    */ 
-  /* arrow key).                                              */    
-  keyseq buffer[80] ;   
-  
-  /* Buffer "pointer"  */ 
-  int bufpnt = 0; 
-  
-  
-  /* Test for existence of history file. */  
-  int exists;  
-  exists = fexists(".history"); 
-  printf("Result: %d \n", exists);  
+/* Main buffer "pointer"  */ 
+int bufpnt = 0; 
+      
+/* "Pointer" for the history file. */ 
+int histpnt = 20;       
+      
   
   while(1) 
     {  
                    
-      int key = getch(); 
+      int key = getch();      
+      buffer[bufpnt] = key; 				       
+      bufpnt += 1;        
        
       /* Printable chars. */  
       if ( (key >= 32)  && (key <= 126) ) 
-      { 		
-        buffer[bufpnt].key = key;  
-        bufpnt += 1; 
+      { 
+		/* We have a printable key so print it. */   
+		putchar(key);   
+		bufpnt += 1; 		
       }  
                                                                        
       /* Up arrow is 27, 91, 65.    ( ESC [ A )   */   
@@ -136,47 +174,85 @@ int main(void)
       /* F2 is 27, 79, 81.  */  
       /* F3 is 27, 79, 82.  */  
       /* F4 is 27, 79, 83.  */  
+      
+      /* Backspace */ 
+      else if(key == 127) 
+      { 
+		 /* Move left 1 char and delete that char */ 
+		 bufpnt -= 1;  	
+		 printf("\033[1D");
+		 printf("\040"); 
+		 printf("\033[1D");		 
+		 /* Move 1 char to left again */  
+		 bufpnt -= 1;  		
+	  } 	      
+        
+     /* We have an escape key-sequence */                           
+      else if(key == 27) 
+        {
+           key = getch(); 
+           if(key == 91)               
+           key = getch(); 
            
-                
-      else if(key == 27)        
-          {  
-			  
-			  buffer[bufpnt].esc = 1; 			 
-			  key = getch(); 
-              if(key == 91)               
-              buffer[bufpnt].lbr = 1;                
-              key = getch(); 
-              if( (key >= 65) && (key <= 68) )  
-               { 				 
-				 buffer[bufpnt].key = key;                  
-               }				  
-            bufpnt += 1; 	    
-          } 
-              
-                                          
+           if (key == 65)   /* Up Arrow */ 
+          {   
+			  /* Move one command "back" in history. */  
+			  histpnt -= 1; 			  		  		
+			  /* Clear to end of line. */ 
+			  printf("\033[80D"); 
+			  printf("\033[K"); 
+			  /* Move buffer pointer to start of line */ 
+			  bufpnt = 0;  
+			  /* Clear the array. */ 
+			  memset(buffer, 0, sizeof(char)*80);  			  			  
+			  /* Print the pointed-at command-sequence. */ 
+			  putline(hist[histpnt]); 			 
+          }  
+          
+          if(key == 66)    /* Down Arrow */   			  
+		  {  
+			  /* Move one command "forward" in history. */  
+			  histpnt += 1;  							  			 
+			  /* Clear to end of line. */ 
+			  printf("\033[80D"); 
+			  printf("\033[K"); 
+			  /* Move buffer pointer to start of line */ 
+			  bufpnt = 0; 
+			  /* Clear the array. */ 
+			  memset(buffer, 0, sizeof(char)*80);  			  			   			  
+			  /* Print the pointed-at command-sequence. */ 
+			  putline(hist[histpnt]); 			  
+		  }  
+		  
+		  if(key == 67)  /* Left arrow */ 
+          { 	
+			 /* Move one character to the left. */ 			 			 			  
+			  printf("\033[1C"); 
+          }
+          
+          if(key == 68)  /* Right arrow */ 
+          { 	
+			/* Move one character to the right. */ 			 			 						 			 			  			 
+			  printf("\033[1D"); 
+          }
+		 		  	  		
+      }  /* End of key=27 key sequence. */ 
+					  			                                                   
                                                  
-    /* The Enter key exits. Enter is 10 decimal */	  
+     /* The Enter key exits. Enter is 10 decimal */	  
         else if(key == 10)  
 		{ 
-			 int j ; 
-		   /* Print the array of structs. */ 
-		     for (j=0; j<10; j++) 	
-		     { 
-			    printf("Fnkey: %d ", buffer[j].fnkey  ) ; 
-			    printf("Ctrl:  %d ", buffer[j].ctrl   ) ;   
-			    printf("Alt:   %d ", buffer[j].alt    ) ; 
-			    printf("Shf:   %d ", buffer[j].shf    ) ; 
-			    printf("Esc:   %d ", buffer[j].esc    ) ; 
-			    printf("Lbr:   %d ", buffer[j].lbr    ) ;  
-	            printf("Key:   %d \n", buffer[j].key  ) ; 
-	         } 		  	
-					  
+			 puts("\n");  
+			 puts("Exiting... \n"); 					  					
              break;           
          }  /* Key = Enter */   
     }                
                                       
 	return 0;
+
 }  
+
+
 
 
 

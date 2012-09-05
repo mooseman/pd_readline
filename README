@@ -1,31 +1,30 @@
 
  ***** README - pd_readline ***** 
 
-  This repo is for the (eventual) storage of a public-domain  
+  This repo is for the storage of a public-domain  
 readline-and-command-history implementation. 
 
-Update - 26th Aug 2012 - 
+Update - 5th Sep 2012 - 
 
-Very useful progress.  
-Keystroke sequences are now stored in an array of structs. 
-This makes it VERY easy to see the various special flags 
-in a keystroke sequence 
-(e.g. Esc, Ctrl, Alt and so on..... ).  
+Almost there!  
+The code now "pretty much" works as expected. 
+( However, pressing Enter exits the program rather 
+than storing the existing command-line and "staying 
+in the program". I hope to fix this soon. )   
 
-Big breakthrough - the code can now distinguish between 
-normal "printable" keys and keys that should not be 
-printed (e.g. arrow keys, Ctrl sequences and so on).  
+You can edit a command-line (using backspace). 
+You can move around with left and right-arrow 
+keys. 
+Command-history can be recalled from a file with 
+the up-arrow key, and you can scroll up and down 
+through the command-history. 
 
-The next goal is to make the code move the cursor to the 
-left (when left-arrow is pressed) and delete a char (when 
-backspace is pressed). 
+*** CAUTION! *** - There is, however, an occasional 
+problem with "stack-smashing". 
 
-Still some way to go to get to a REAL readline, but we are 
-"on the way......"
 
 This code is released to the public domain.  
 "Share and enjoy........ ;)  "  
-
 
  - mooseman 
 
