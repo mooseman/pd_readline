@@ -8,7 +8,17 @@
 /*  This code is released to the public domain.        */ 
 /*  "Share and enjoy...."  ;)                          */  
 /*  See the UNLICENSE file for details.                */ 
- 
+
+/*  TO DO -                                            */ 
+/*  a) Fix the "stack smash" problem.                  */  
+/*  b) Put much of the code into a header file.        */    
+/*  c) Change so that pressing Enter adds the current  */  
+/*     line of commands to the command-history.        */ 
+/*     ( May look at using Ctrl-D to exit, as Python   */ 
+/*     does with its command-line. )                   */           
+/*  d) Add support for copying and pasting text via    */ 
+/*     Ctrl-C and Ctrl-V.                              */  
+
 
 #include <string.h>   
 #include <stdio.h> 
