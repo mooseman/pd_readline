@@ -4,13 +4,18 @@
   This repo is for the storage of a public-domain  
 readline-and-command-history implementation. 
 
-Update - 5th Sep 2012 - 
+Update - 6th Sep 2012 - 
 
 Almost there!  
-The code now "pretty much" works as expected. 
-( However, pressing Enter exits the program rather 
+The code now pretty much works as expected. 
+
+It looks like the stack-smash problem has now 
+been fixed. I've give the code a pretty good 
+hammering and it didn't give me problems. 
+
+Pressing Enter still exits the program rather 
 than storing the existing command-line and "staying 
-in the program". I hope to fix this soon. )   
+in the program". I hope to change this soon.     
 
 You can edit a command-line (using backspace). 
 You can move around with left and right-arrow 
@@ -18,10 +23,6 @@ keys.
 Command-history can be recalled from a file with 
 the up-arrow key, and you can scroll up and down 
 through the command-history. 
-
-*** CAUTION! *** - There is, however, an occasional 
-problem with "stack-smashing". 
-
 
 This code is released to the public domain.  
 "Share and enjoy........ ;)  "  

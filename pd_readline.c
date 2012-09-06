@@ -10,13 +10,16 @@
 /*  See the UNLICENSE file for details.                */ 
 
 /*  TO DO -                                            */ 
-/*  a) Fix the "stack smash" problem.                  */  
-/*  b) Put much of the code into a header file.        */    
-/*  c) Change so that pressing Enter adds the current  */  
+/*  a) Add support for Home and End (of line) keys.    */ 
+/*  b) Add support for function keys.                  */ 
+/*  c) Add support for Insert key so that text can be  */ 
+/*     inserted.                                       */   
+/*  d) Put much of the code into a header file.        */    
+/*  e) Change so that pressing Enter adds the current  */  
 /*     line of commands to the command-history.        */ 
 /*     ( May look at using Ctrl-D to exit, as Python   */ 
 /*     does with its command-line. )                   */           
-/*  d) Add support for copying and pasting text via    */ 
+/*  f) Add support for copying and pasting text via    */ 
 /*     Ctrl-C and Ctrl-V.                              */  
 
 
@@ -95,6 +98,7 @@ char *chop(char *s)
 char hist[20][80];  
 
 
+
 /* Read the file into the array of strings.  */ 
 void readfile(char *fname) 
 { 
@@ -151,11 +155,6 @@ int main(void)
 /* Our "command-history" file.  */ 
 readfile("test.txt"); 
 
-/* Main buffer for the command-line. */ 
-char buffer[80];  
-    
-/* Main buffer "pointer"  */ 
-int bufpnt = 0; 
       
 /* "Pointer" for the history file. */ 
 int histpnt = 20;       
@@ -164,16 +163,13 @@ int histpnt = 20;
   while(1) 
     {  
                    
-      int key = getch();      
-      buffer[bufpnt] = key; 				       
-      bufpnt += 1;        
+      int key = getch();               
        
       /* Printable chars. */  
       if ( (key >= 32)  && (key <= 126) ) 
       { 
 		/* We have a printable key so print it. */   
-		putchar(key);   
-		bufpnt += 1; 		
+		putchar(key);   	
       }  
                                                                        
       /* Up arrow is 27, 91, 65.    ( ESC [ A )   */   
@@ -188,13 +184,10 @@ int histpnt = 20;
       /* Backspace */ 
       else if(key == 127) 
       { 
-		 /* Move left 1 char and delete that char */ 
-		 bufpnt -= 1;  	
+		 /* Move left 1 char and delete that char */ 		
 		 printf("\033[1D");
 		 printf("\040"); 
-		 printf("\033[1D");		 
-		 /* Move 1 char to left again */  
-		 bufpnt -= 1;  		
+		 printf("\033[1D");		 		 
 	  } 	      
         
      /* We have an escape key-sequence */                           
@@ -210,11 +203,7 @@ int histpnt = 20;
 			  histpnt -= 1; 			  		  		
 			  /* Clear to end of line. */ 
 			  printf("\033[80D"); 
-			  printf("\033[K"); 
-			  /* Move buffer pointer to start of line */ 
-			  bufpnt = 0;  
-			  /* Clear the array. */ 
-			  memset(buffer, 0, sizeof(char)*80);  			  			  
+			  printf("\033[K"); 			 
 			  /* Print the pointed-at command-sequence. */ 
 			  putline(hist[histpnt]); 			 
           }  
@@ -225,24 +214,20 @@ int histpnt = 20;
 			  histpnt += 1;  							  			 
 			  /* Clear to end of line. */ 
 			  printf("\033[80D"); 
-			  printf("\033[K"); 
-			  /* Move buffer pointer to start of line */ 
-			  bufpnt = 0; 
-			  /* Clear the array. */ 
-			  memset(buffer, 0, sizeof(char)*80);  			  			   			  
+			  printf("\033[K"); 			  			 
 			  /* Print the pointed-at command-sequence. */ 
 			  putline(hist[histpnt]); 			  
 		  }  
 		  
 		  if(key == 67)  /* Left arrow */ 
           { 	
-			 /* Move one character to the left. */ 			 			 			  
+			 /* Move one character to the left. */ 				 
 			  printf("\033[1C"); 
           }
           
           if(key == 68)  /* Right arrow */ 
           { 	
-			/* Move one character to the right. */ 			 			 						 			 			  			 
+			/* Move one character to the right. */ 					  
 			  printf("\033[1D"); 
           }
 		 		  	  		
