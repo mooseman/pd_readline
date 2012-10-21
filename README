@@ -4,6 +4,17 @@
   This repo is for the storage of a public-domain  
 readline-and-command-history implementation. 
 
+FILES:  
+
+pd_readline.c  -  This is a file to test the 
+implementation. Contains the main() function. 
+
+keyhandler.c - Reads the keystrokes and calls 
+functions to handle them. 
+
+funcs.c - Functions to handle the keystrokes. 
+
+
 Update - 6th Sep 2012 - 
 
 Almost there!  
