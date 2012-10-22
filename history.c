@@ -6,6 +6,9 @@
 /*  "Share and enjoy...."  ;)                          */  
 /*  See the UNLICENSE file for details.                */ 
 
+#include <string.h>   
+#include <stdio.h> 
+#include <stdlib.h> 
 
 
 /*  Helper function, to let us see if a file */ 

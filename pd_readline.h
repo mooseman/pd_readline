@@ -28,7 +28,7 @@ int esc(int i);
 
 /*  Other funcs.  */  
 void readhistory(char *fname); 
-int keyhandler(void);  
+void keyhandler(void);  
 
 
 

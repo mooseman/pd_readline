@@ -12,6 +12,7 @@
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <termios.h>  
+#include "pd_readline.h"  
 
 
 /* This implementation of getch() is from here - */ 
@@ -58,16 +59,16 @@ char getche(void) {
 
 
 
-int keyhandler(void) 
+void keyhandler(void) 
 { 
   int i = getch(); 
   
   switch(i)
   { 
-    case (27):  escape() ; 
-    case (33):  dosomething();  
-    case (42):  something();
-    default:    stuff();
+    case (27):  puts("1");    /*  escape() ;       */ 
+    case (33):  puts("2");    /*  dosomething();   */ 
+    case (42):  puts("3");    /*  something();     */ 
+    default:    puts("4");    /*  stuff();         */ 
   }   
   
 } 

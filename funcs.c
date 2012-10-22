@@ -11,7 +11,7 @@
 #include <string.h>   
 #include <stdio.h> 
 #include <stdlib.h> 
-
+#include "pd_readline.h"  
 
 
 /* Move up in history list. */ 
