@@ -62,12 +62,12 @@ int keyhandler(void)
 { 
   int i = getch(); 
   
-  switch(i); 
+  switch(i)
   { 
     case (27):  escape() ; 
     case (33):  dosomething();  
     case (42):  something();
-    default:    stuff(): 
+    default:    stuff();
   }   
   
 } 

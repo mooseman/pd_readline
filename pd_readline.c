@@ -23,14 +23,14 @@
 /*     Ctrl-C and Ctrl-V.                              */  
 
 
-
+#include "pd_readline.h"   
 
 
 int main(void) 
 { 
   
   /* Read in the command history file. */ 
-  readhistory();  
+  readhistory("test.txt");  
   
   
   while(1) 

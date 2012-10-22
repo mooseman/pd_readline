@@ -17,9 +17,9 @@ LIBS = -l$(SYSLIBS) $(MYLIBS)
 
 RM = rm -f 
 
-#HEADERS= foo.h  bar.h  baz.h  
+HEADERS= pd_readline.h 
 
-OBJECTS = pd_readline.o  keyhandler.o  funcs.o  history.o
+OBJECTS =  keyhandler.o  funcs.o  history.o pd_readline.o
 
 %.o: %.c
 	$(CC) $(CFLAGS) $< -o $@
@@ -27,7 +27,7 @@ OBJECTS = pd_readline.o  keyhandler.o  funcs.o  history.o
 pd_readline: $(OBJECTS)
 	$(CC) $(LDFLAGS) $(OBJECTS) -o $@ $(LIBS)
 
-#pd_readline.o: $(HEADERS)
+pd_readline.o: $(HEADERS)
 #keyhandler.o: $(HEADERS)
 #funcs.o: $(HEADERS)
 #history.o: $(HEADERS)
