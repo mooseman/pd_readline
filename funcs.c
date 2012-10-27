@@ -13,9 +13,14 @@
 #include <stdlib.h> 
 #include "pd_readline.h"  
 
+/* Note - make the up and down funcs return a buffer.     */ 
+/* A line from the history file can be put into the       */ 
+/* array member of the buffer.                            */ 
+/* Also test for the top and bottom of the history file.  */     
+
 
 /* Move up in history list. */ 
-int up(int i) 
+buf up(int i) 
 { 
   
 
@@ -24,7 +29,7 @@ int up(int i)
 
 
 /* Move down in history list. */ 
-int down(int i) 
+buf down(int i) 
 { 
 
 
@@ -63,17 +68,21 @@ buf insch(buf b)
 } 
 
 
+void enter(void) 
+{ 
+	printf("Enter ");   		
+} 	
 
-/*  Function to handle escape sequences. */ 
-int esc(int i) 
+
+
+/*  Function for special key combinations  */ 
+/*  (Ctrl, Alt, function keys.             */ 
+int spec(int i)
 { 
 	
 	
-	
-	
-}  	
 
-
+} 	
 
 
 

@@ -39,7 +39,9 @@ char hist[20][80];
 
 
 
-/* Read the file into the array of strings.  */ 
+/* Read the file into the array of strings.                */ 
+/* TO DO - look at reading file into a series of structs.  */ 
+
 void readhistory(char *fname) 
 { 
    int retval = fexists(fname); 
@@ -63,6 +65,12 @@ void readhistory(char *fname)
 	
 } 	
 
+
+/* TO DO - a function that reads in the 2d history array, and    */ 
+/* returns a struct with one line from the array, and the index  */
+/* of the line.                                                  */ 
+
+ 
 
 
 

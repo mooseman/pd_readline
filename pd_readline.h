@@ -16,19 +16,20 @@ typedef struct {
 
 
 /*  Cursor movement funcs. */ 
-int up(int i); 
-int down(int i); 
+buf up(int i); 
+buf down(int i); 
 buf left(buf b); 
 buf right(buf b); 
 buf delch(buf b); 
 buf insch(buf b); 
+void enter(void);  
 
 /*  Escape-key handling.  */ 
-int esc(int i); 
+int spec(int i); 
 
 /*  Other funcs.  */  
 void readhistory(char *fname); 
-void keyhandler(void);  
+void keyhandler(buf b);  
 
 
 

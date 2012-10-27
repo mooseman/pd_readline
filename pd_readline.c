@@ -29,6 +29,10 @@
 int main(void) 
 { 
   
+  /* Create a buffer for the text.  */ 
+  buf mybuf;  
+  
+  
   /* Read in the command history file. */ 
   readhistory("test.txt");  
   
@@ -36,7 +40,7 @@ int main(void)
   while(1) 
   {  
        
-    keyhandler();   
+    keyhandler(mybuf);   
         
   }         
                                       

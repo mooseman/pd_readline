@@ -59,16 +59,48 @@ char getche(void) {
 
 
 
-void keyhandler(void) 
+/*  Arrow keys are esc [ A to esc [ D                       */ 
+/*  Alt keys are just esc then key (e.g. Alt-g is esc g ).  */   
+/*  Ctrl (then letter) keys are just Dec 1 to Dec 26        */ 
+
+void keyhandler(buf b) 
 { 
+    
   int i = getch(); 
   
   switch(i)
   { 
-    case (27):  puts("1");    /*  escape() ;       */ 
-    case (33):  puts("2");    /*  dosomething();   */ 
-    case (42):  puts("3");    /*  something();     */ 
-    default:    puts("4");    /*  stuff();         */ 
+	case (1):   break;     /*  Ctrl a  */   
+	case (2):   break;     /*  Ctrl b  */   
+	case (3):   break;     /*  Ctrl c  */     
+	  
+	case (10):  enter();     /* Enter    */   
+	  
+    case (27):  spec(i);   break;   /*  esc  */ 
+    
+    case (32):  printf("%c", i);  break;      /*  Printable chars.  */    
+    case (33):  printf("%c", i);  break;      /*  Printable chars.  */    
+    case (34):  printf("%c", i);  break;      /*  Printable chars.  */    
+    
+    case (65):  printf("%c", i);  break;      /*  "A"  */    
+    case (66):  printf("%c", i);  break;      /*  "B"  */    
+    case (67):  printf("%c", i);  break;      /*  "C"  */   
+    case (68):  printf("%c", i);  break;      /*  "D"  */    
+    case (69):  printf("%c", i);  break;      /*  "E"  */    
+    case (70):  printf("%c", i);  break;      /*  "F"  */    
+      
+    case (97):  printf("%c", i);  break;       /*  "a"  */    
+    case (98):  printf("%c", i);  break;       /*  "b"  */    
+    case (99):  printf("%c", i);  break;       /*  "c"  */    
+    case (100):  printf("%c", i);  break;      /*  "d"  */    
+    case (101):  printf("%c", i);  break;      /*  "e"  */    
+    case (102):  printf("%c", i);  break;      /*  "f"  */    
+            
+    case (126):  printf("%c", i);  break;      /*  "~"  */    
+    
+    case (127):  delch(b);  break;  
+   
+    default:   break;                 /*  stuff();         */ 
   }   
   
 } 
