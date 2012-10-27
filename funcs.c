@@ -74,6 +74,32 @@ void enter(void)
 } 	
 
 
+/* Find if a number is in a given range. */ 
+int range(int rstart, int rend, int i)
+{
+   if ( (rstart <= i) && (i <= rend) ) return 1;
+   else return 0;	
+	
+} 	
+
+
+/* Assign a type depending on the range that a  */ 
+/* number is in.                                */ 
+int type(int i)
+{ 
+   int ret; 
+   
+        if ( range(0, 9, i) == 1 )       ret = 1; 
+   else if ( range(10, 10, i) == 1 )     ret = 2; 
+   else if ( range(27, 27, i) == 1 )     ret = 3; 
+   else if ( range(32, 126, i) == 1 )    ret = 4;  	   
+   else if ( range(127, 127, i) == 1 )   ret = 5;
+   else ret = 6;  	   
+    
+   return ret; 
+   
+}     
+	
 
 /*  Function for special key combinations  */ 
 /*  (Ctrl, Alt, function keys.             */ 

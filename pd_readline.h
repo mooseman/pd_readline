@@ -23,6 +23,9 @@ buf right(buf b);
 buf delch(buf b); 
 buf insch(buf b); 
 void enter(void);  
+int range(int rstart, int rend, int i);
+int type(int i); 
+
 
 /*  Escape-key handling.  */ 
 int spec(int i); 

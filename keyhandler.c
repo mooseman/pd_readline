@@ -21,7 +21,8 @@
 static struct termios old, new;
 
 /* Initialize new terminal i/o settings */
-void initTermios(int echo) {
+void initTermios(int echo) 
+{
     tcgetattr(0, &old); /* grab old terminal i/o settings */
     new = old; /* make new settings same as old settings */
     new.c_lflag &= ~ICANON; /* disable buffered i/o */
@@ -31,7 +32,8 @@ void initTermios(int echo) {
 
 
 /* Restore old terminal i/o settings */
-void resetTermios(void) {
+void resetTermios(void) 
+{
     tcsetattr(0, TCSANOW, &old);
 }
 
@@ -63,47 +65,34 @@ char getche(void) {
 /*  Alt keys are just esc then key (e.g. Alt-g is esc g ).  */   
 /*  Ctrl (then letter) keys are just Dec 1 to Dec 26        */ 
 
+/* TO DO: Use the helper function range                     */  
+/*  (  range(rstart, rend, val).  )                         */ 
+/* to handle entire ranges at once.                         */        
+
+
 void keyhandler(buf b) 
 { 
     
   int i = getch(); 
   
-  switch(i)
+  int t = type(i); 
+    
+  switch(t)
   { 
+	  
 	case (1):   break;     /*  Ctrl a  */   
 	case (2):   break;     /*  Ctrl b  */   
 	case (3):   break;     /*  Ctrl c  */     
-	  
-	case (10):  enter();     /* Enter    */   
-	  
-    case (27):  spec(i);   break;   /*  esc  */ 
-    
-    case (32):  printf("%c", i);  break;      /*  Printable chars.  */    
-    case (33):  printf("%c", i);  break;      /*  Printable chars.  */    
-    case (34):  printf("%c", i);  break;      /*  Printable chars.  */    
-    
-    case (65):  printf("%c", i);  break;      /*  "A"  */    
-    case (66):  printf("%c", i);  break;      /*  "B"  */    
-    case (67):  printf("%c", i);  break;      /*  "C"  */   
-    case (68):  printf("%c", i);  break;      /*  "D"  */    
-    case (69):  printf("%c", i);  break;      /*  "E"  */    
-    case (70):  printf("%c", i);  break;      /*  "F"  */    
-      
-    case (97):  printf("%c", i);  break;       /*  "a"  */    
-    case (98):  printf("%c", i);  break;       /*  "b"  */    
-    case (99):  printf("%c", i);  break;       /*  "c"  */    
-    case (100):  printf("%c", i);  break;      /*  "d"  */    
-    case (101):  printf("%c", i);  break;      /*  "e"  */    
-    case (102):  printf("%c", i);  break;      /*  "f"  */    
-            
-    case (126):  printf("%c", i);  break;      /*  "~"  */    
-    
-    case (127):  delch(b);  break;  
-   
-    default:   break;                 /*  stuff();         */ 
+	case (4):   printf("%c", i);  break;    /*  Printable chars.  */    
+	case (5):   delch(b);  break;  
+	case (6):   break;  
+	default:    break; 
+		     
   }   
   
-} 
+}    
+
+
 
 
 
