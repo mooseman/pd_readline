@@ -103,11 +103,16 @@ int type(int i)
 
 /*  Function for special key combinations  */ 
 /*  (Ctrl, Alt, function keys.             */ 
-int spec(int i)
+void spec(void)
 { 
 	
-	
-
+  int j = getch();  
+   
+       if ( ( j == 65 )	)  printf("Up ");  
+  else if ( ( j == 66 )	)  printf("Down "); 
+  else if ( ( j == 67 )	)  printf("Right "); 
+  else if ( ( j == 68 )	)  printf("Left "); 
+   		
 } 	
 
 

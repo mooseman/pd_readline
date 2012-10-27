@@ -27,8 +27,9 @@ int range(int rstart, int rend, int i);
 int type(int i); 
 
 
-/*  Escape-key handling.  */ 
-int spec(int i); 
+/*  Special key handling.  */ 
+void spec(void); 
+
 
 /*  Other funcs.  */  
 void readhistory(char *fname); 

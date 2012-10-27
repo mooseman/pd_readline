@@ -82,7 +82,7 @@ void keyhandler(buf b)
 	  
 	case (1):   break;     /*  Ctrl a  */   
 	case (2):   break;     /*  Ctrl b  */   
-	case (3):   break;     /*  Ctrl c  */     
+	case (3):   getch();  spec(); break;   /*  Ctrl c  */     
 	case (4):   printf("%c", i);  break;    /*  Printable chars.  */    
 	case (5):   delch(b);  break;  
 	case (6):   break;  
