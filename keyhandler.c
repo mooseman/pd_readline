@@ -65,17 +65,12 @@ char getche(void) {
 /*  Alt keys are just esc then key (e.g. Alt-g is esc g ).  */   
 /*  Ctrl (then letter) keys are just Dec 1 to Dec 26        */ 
 
-/* TO DO: Use the helper function range                     */  
-/*  (  range(rstart, rend, val).  )                         */ 
-/* to handle entire ranges at once.                         */        
-
-
 void keyhandler(buf b) 
 { 
     
-  int i = getch(); 
+  int a = getch();    
   
-  int t = type(i); 
+  int t = type(a); 
     
   switch(t)
   { 
@@ -83,13 +78,13 @@ void keyhandler(buf b)
 	case (1):   break;     /*  Ctrl a  */   
 	case (2):   break;     /*  Ctrl b  */   
 	case (3):   getch();  spec(); break;   /*  Ctrl c  */     
-	case (4):   printf("%c", i);  break;    /*  Printable chars.  */    
+	case (4):   set(b, a);   break;    /*  Printable chars.  */    
 	case (5):   delch(b);  break;  
 	case (6):   break;  
 	default:    break; 
 		     
   }   
-  
+   
 }    
 
 

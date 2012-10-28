@@ -40,6 +40,13 @@ int g = range(50, 80, 91);
 printf("%d %d %d %d %d %d %d \n", a, b, c, d, e, f, g);   
 
 
+int i = 65; 
+char s[2]; 
+
+snprintf(s, 2, "%c", i);  
+
+printf("%s \n" , s ); 
+
 return 0; 
 
 

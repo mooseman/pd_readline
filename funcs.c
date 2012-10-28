@@ -19,8 +19,38 @@
 /* Also test for the top and bottom of the history file.  */     
 
 
+/*  Display a buffer  */ 
+void show(buf b)
+{ 
+   printf("%s", b.array); 			
+} 	
+
+
+
+/* Enter a char into a buffer and display the buffer array.  */ 
+buf set(buf b, int i)
+{ 
+  if ( (b.index < 80)  )  
+    { 
+	   b.array[b.index] = i;	
+	   b.index += 1	;
+    } 
+  else
+    { 
+	   memset(b.array[0], 0, sizeof(b.array) ); 
+	   b.array[0] = i;
+	   b.index += 1	;	    	
+    }		
+  
+  show(b); 
+  return b; 	
+	
+} 
+
+
+
 /* Move up in history list. */ 
-buf up(int i) 
+buf up(buf b) 
 { 
   
 
@@ -29,7 +59,7 @@ buf up(int i)
 
 
 /* Move down in history list. */ 
-buf down(int i) 
+buf down(buf b) 
 { 
 
 

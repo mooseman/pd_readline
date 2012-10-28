@@ -29,19 +29,20 @@
 int main(void) 
 { 
   
-  /* Create a buffer for the text.  */ 
+  /* Create a buffer for entered text.  */ 
   buf mybuf;  
-  
+  mybuf.index = 0;
+   
   
   /* Read in the command history file. */ 
-  readhistory("test.txt");  
-  
+  buf histbuf = readhistory("test.txt");  
+    
   
   while(1) 
   {  
        
-    keyhandler(mybuf);   
-        
+    keyhandler(mybuf);  
+         
   }         
                                       
   return 0;

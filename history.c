@@ -9,6 +9,8 @@
 #include <string.h>   
 #include <stdio.h> 
 #include <stdlib.h> 
+#include <malloc.h>
+#include "pd_readline.h"  
 
 
 /*  Helper function, to let us see if a file */ 
@@ -40,10 +42,12 @@ char hist[20][80];
 
 
 /* Read the file into the array of strings.                */ 
-/* TO DO - look at reading file into a series of structs.  */ 
-
-void readhistory(char *fname) 
+buf readhistory(char *fname) 
 { 
+	
+   /*  Create a history buffer.  */ 
+   buf h; 	
+	
    int retval = fexists(fname); 
         
    int i; 
@@ -53,22 +57,33 @@ void readhistory(char *fname)
 	  /* append new commands to it. */ 
 	  FILE *fptr;  
 	  fptr = fopen(fname, "rw"); 
-	 	  	   
+	 	
+      char line[80] ; 
+	 		 	  	   
 	  for(i=0; i<20; i++)  
-	  {  
-		chop(fgets(hist[i], 80, fptr) );  
+	  { 
+		fgets(line, 80, fptr);    		 
+		chop(line) ;   
+		memcpy(hist[i], line, 80) ;   
+		puts(hist[i]); 
 	  }
 	  
    }  /* retval == 0  */   	   
 	
 	else puts("Error! File does not exist. \n");  
 	
+	/* Read the most recent command into histbuf */ 
+	/* and set the index to 19.                  */
+	/*  
+	    h.index = 19; 
+        h.array = hist[h.index] ;  
+    */
+	
+	return h;
+	
 } 	
 
-
-/* TO DO - a function that reads in the 2d history array, and    */ 
-/* returns a struct with one line from the array, and the index  */
-/* of the line.                                                  */ 
+                                           
 
  
 

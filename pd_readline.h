@@ -15,9 +15,11 @@ typedef struct {
 
 
 
-/*  Cursor movement funcs. */ 
-buf up(int i); 
-buf down(int i); 
+/*  Buffer funcs. */ 
+buf set(buf b, int i);
+void show(buf b);
+buf up(buf b); 
+buf down(buf b); 
 buf left(buf b); 
 buf right(buf b); 
 buf delch(buf b); 
@@ -32,7 +34,7 @@ void spec(void);
 
 
 /*  Other funcs.  */  
-void readhistory(char *fname); 
+buf readhistory(char *fname); 
 void keyhandler(buf b);  
 
 
