@@ -18,6 +18,13 @@
 /* array member of the buffer.                            */ 
 /* Also test for the top and bottom of the history file.  */     
 
+/*  Error function.  */ 
+void error(void)
+{ 
+   printf("Error \n"); 	
+} 	
+
+
 
 /*  Display a buffer  */ 
 void show(buf b)
@@ -37,7 +44,7 @@ buf set(buf b, int i)
     } 
   else
     { 
-	   memset(b.array[0], 0, sizeof(b.array) ); 
+	   memset(&b.array[0], 0, sizeof(b.array) ); 
 	   b.array[0] = i;
 	   b.index += 1	;	    	
     }		
@@ -48,21 +55,53 @@ buf set(buf b, int i)
 } 
 
 
+/*  Return a line from hist.  */ 
+buf get(hist h)
+{ 
+   buf b; 
+   memcpy(&b.array[0], h.array[h.curindex], 80); 
+   return b;		
+}	 
+
+
 
 /* Move up in history list. */ 
-buf up(buf b) 
+hist up(hist h) 
 { 
+	
+  buf b;  	  
+	
+  if ( (h.curindex > 0) )  
+    { 
+		h.curindex -= 1; 
+		memset(&b.array[0], 0, sizeof(b.array) ); 
+		memcpy(&b.array[0], h.array[h.curindex], 80); 	
+		show(b);          	
+        return h;  		
+    }    
+     
+  else error();  
   
-
-
 } 
 
 
 /* Move down in history list. */ 
-buf down(buf b) 
+hist down(hist h) 
 { 
-
-
+	
+  buf b; 	  
+	
+  if ( (h.curindex < 19) )  
+    { 
+		h.curindex += 1; 
+		memset(&b.array[0], 0, sizeof(b.array) ); 
+		memcpy(&b.array[0], h.array[h.curindex], 80); 
+		show(b);    
+        return h;  			
+    }  
+    
+  else error();     
+  
 } 
 
 
@@ -133,13 +172,13 @@ int type(int i)
 
 /*  Function for special key combinations  */ 
 /*  (Ctrl, Alt, function keys.             */ 
-void spec(void)
+void spec(hist h)
 { 
 	
   int j = getch();  
-   
-       if ( ( j == 65 )	)  printf("Up ");  
-  else if ( ( j == 66 )	)  printf("Down "); 
+    
+       if ( ( j == 65 )	)  up(h); 
+  else if ( ( j == 66 )	)  down(h); 
   else if ( ( j == 67 )	)  printf("Right "); 
   else if ( ( j == 68 )	)  printf("Left "); 
    		

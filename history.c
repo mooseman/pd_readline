@@ -35,18 +35,13 @@ char *chop(char *s)
 }
 
 
-/* An array to store the command-history file in. */ 
-/* Only 20 lines are read. */ 
-char hist[20][80];  
 
-
-
-/* Read the file into the array of strings.                */ 
-buf readhistory(char *fname) 
+/* Read the file into the array of strings.   */ 
+hist readhistory(char *fname) 
 { 
 	
    /*  Create a history buffer.  */ 
-   buf h; 	
+   hist h; 	
 	
    int retval = fexists(fname); 
         
@@ -63,22 +58,20 @@ buf readhistory(char *fname)
 	  for(i=0; i<20; i++)  
 	  { 
 		fgets(line, 80, fptr);    		 
-		chop(line) ;   
-		memcpy(hist[i], line, 80) ;   
-		puts(hist[i]); 
+		chop(line) ;  
+		
+		/* TO DO: fix the "too few arguments" bug here.... */  
+		memcpy(&h.array[i], line, 80) ;   
+		puts(h.array[i]); 
 	  }
 	  
    }  /* retval == 0  */   	   
 	
 	else puts("Error! File does not exist. \n");  
-	
-	/* Read the most recent command into histbuf */ 
-	/* and set the index to 19.                  */
-	/*  
-	    h.index = 19; 
-        h.array = hist[h.index] ;  
-    */
-	
+		
+	/*  Set the curindex to 19.  */	    
+	    h.curindex = 19; 	   
+            	
 	return h;
 	
 } 	

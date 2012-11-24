@@ -35,13 +35,13 @@ int main(void)
    
   
   /* Read in the command history file. */ 
-  buf histbuf = readhistory("test.txt");  
+  hist myhist = readhistory("test.txt");  
     
   
   while(1) 
   {  
        
-    keyhandler(mybuf);  
+    keyhandler(mybuf, myhist);  
          
   }         
                                       

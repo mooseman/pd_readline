@@ -65,7 +65,7 @@ char getche(void) {
 /*  Alt keys are just esc then key (e.g. Alt-g is esc g ).  */   
 /*  Ctrl (then letter) keys are just Dec 1 to Dec 26        */ 
 
-void keyhandler(buf b) 
+void keyhandler(buf b, hist h) 
 { 
     
   int a = getch();    
@@ -77,7 +77,7 @@ void keyhandler(buf b)
 	  
 	case (1):   break;     /*  Ctrl a  */   
 	case (2):   break;     /*  Ctrl b  */   
-	case (3):   getch();  spec(); break;   /*  Ctrl c  */     
+	case (3):   getch();  spec(h); break;   /*  Ctrl c  */     
 	case (4):   set(b, a);   break;    /*  Printable chars.  */    
 	case (5):   delch(b);  break;  
 	case (6):   break;  

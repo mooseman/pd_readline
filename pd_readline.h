@@ -14,12 +14,31 @@ typedef struct {
 } buf;  
 
 
+/*  History. */ 
+typedef struct { 
+	int curindex; 
+	char array[20][80]; 
+} hist;    
+
+
+
+
+/*  Termios funcs.  */ 
+void initTermios(int echo) ;
+void resetTermios(void) ;
+char getch_(int echo);
+char getch(void);
+char getche(void);
+
 
 /*  Buffer funcs. */ 
-buf set(buf b, int i);
+void error(void); 
 void show(buf b);
-buf up(buf b); 
-buf down(buf b); 
+buf set(buf b, int i);
+buf get(hist h); 
+
+hist up(hist h); 
+hist down(hist h); 
 buf left(buf b); 
 buf right(buf b); 
 buf delch(buf b); 
@@ -30,12 +49,12 @@ int type(int i);
 
 
 /*  Special key handling.  */ 
-void spec(void); 
+void spec(hist h); 
 
 
 /*  Other funcs.  */  
-buf readhistory(char *fname); 
-void keyhandler(buf b);  
+hist readhistory(char *fname); 
+void keyhandler(buf b, hist h);  
 
 
 
