@@ -1,39 +1,39 @@
 
  ***** README - pd_readline ***** 
 
-  This repo is for the storage of a public-domain  
-readline-and-command-history implementation. 
+ This repo is for the storage of a public-domain  
+readline-and-command-history implementation.  
 
 FILES:  
 
 pd_readline.c  -  This is a file to test the 
 implementation. Contains the main() function. 
 
-keyhandler.c - Reads the keystrokes and calls 
-functions to handle them. 
+test.txt -  A small text file to test scrolling 
+up and down with. This would be the "history" file 
+in a real readline implementation.  
 
-funcs.c - Functions to handle the keystrokes. 
 
+Status - 31st Dec 2015 - "sort of works".  
 
-Update - 6th Sep 2012 - 
+I'm back into doing work on this code. 
 
-Almost there!  
-The code now pretty much works as expected. 
+I've reverted the code to a much simpler early version. 
+This compiles without errors and allows scrolling up 
+and down through the "test.txt" "dummy history" file. 
+It also allows editing of the command line. 
+However, edits are *not* yet saved in a history file.   
 
-It looks like the stack-smash problem has now 
-been fixed. I've give the code a pretty good 
-hammering and it didn't give me problems. 
-
-Pressing Enter still exits the program rather 
-than storing the existing command-line and "staying 
-in the program". I hope to change this soon.     
+Pressing Enter exits the program rather than storing 
+the existing command-line and "staying in the program". 
+I hope to change this soon.     
 
 You can edit a command-line (using backspace). 
 You can move around with left and right-arrow 
 keys. 
-Command-history can be recalled from a file with 
+"Dummy" history (from text.txt) can be recalled from a file with 
 the up-arrow key, and you can scroll up and down 
-through the command-history. 
+through that file using the up and down arrows. 
 
 This code is released to the public domain.  
 "Share and enjoy........ ;)  "  
